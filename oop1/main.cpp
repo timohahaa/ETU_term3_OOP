@@ -1,5 +1,7 @@
+#include "application.h"
 
 int main()
 {
-    return 0;
+    Application app;
+    return app.exec();
 }
