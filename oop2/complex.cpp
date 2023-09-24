@@ -11,6 +11,12 @@ Complex::Complex(int re, int im)
     this->_im = im;
 }
 
+Complex::Complex(int re)
+{
+    this->_re = re;
+    this->_im = 0;
+}
+
 Complex Complex::operator*(Complex c)
 {
     Complex temp;
@@ -40,6 +46,11 @@ bool Complex::operator==(Complex c)
     return (this->_re == c._re) && (this->_im == c._im);
 }
 
+bool Complex::operator!=(int i)
+{
+    return (this->_re != i) || (this->_im != 0);
+}
+
 Complex Complex::operator*=(Complex c)
 {
     Complex temp = (*this) * c;
@@ -56,10 +67,25 @@ Complex Complex::operator-=(Complex c)
     return *this;
 }
 
+Complex Complex::operator+=(Complex c)
+{
+    Complex temp = (*this) + c;
+    this->_re = temp._re;
+    this->_im = temp._im;
+    return *this;
+}
+
 Complex Complex::operator=(Complex c)
 {
     this->_re = c._re;
     this->_im = c._im;
+    return *this;
+}
+
+Complex Complex::operator=(int i)
+{
+    this->_re = i;
+    this->_im = 0;
     return *this;
 }
 
