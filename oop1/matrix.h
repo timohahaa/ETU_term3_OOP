@@ -3,6 +3,8 @@
 
 #include "number.h"
 
+const int MAX_SIZE = 10;
+
 class Matrix
 {
 public:
@@ -14,8 +16,11 @@ public:
     void printMatrix();
 
 private:
-    number matrix[3][3]; //фиксированный размер, потому что в методичке об этом ни слова не сказанно
+    int size = 3;
+    number matrix[MAX_SIZE][MAX_SIZE]; //фиксированный размер, потому что в методичке об этом ни слова не сказанно
     Matrix copy();
+    void zero();
+    Matrix getMinor(int row, int col);
 
 };
 
