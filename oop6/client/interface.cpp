@@ -37,6 +37,9 @@ Interface::~Interface()
     delete this->buttonCalcDeterminand;
     delete this->buttonCalcRank;
     delete this->buttonTranspose;
+    delete this->setFloat;
+    delete this->setComplex;
+    delete this->setRational;
 }
 
 void Interface::setUpButtonLayout()
@@ -52,6 +55,12 @@ void Interface::setUpButtonLayout()
     this->buttonCalcDeterminand = new QPushButton("Определитель");
     this->buttonCalcRank = new QPushButton("Ранг");
     this->buttonTranspose = new QPushButton("Транспонировать");
+    this->setFloat = new QRadioButton("вещественные");
+    this->setComplex = new QRadioButton("комплексные");
+    this->setRational = new QRadioButton("рациональные");
+    this->setFloat->setChecked(false);
+    this->setComplex->setChecked(false);
+    this->setRational->setChecked(true);
     // лейбл для спинбокса
     QLabel *l = new QLabel("Размер матрицы");
     // добавляем все кнопки
@@ -60,20 +69,20 @@ void Interface::setUpButtonLayout()
     this->buttonLayout->addWidget(this->buttonCalcDeterminand);
     this->buttonLayout->addWidget(this->buttonCalcRank);
     this->buttonLayout->addWidget(this->buttonTranspose);
+    this->buttonLayout->addWidget(this->setFloat);
+    this->buttonLayout->addWidget(this->setComplex);
+    this->buttonLayout->addWidget(this->setRational);
 //    this->buttonLayout->addWidget(this->output);
 }
 
 void Interface::setUpMatLayout()
 {
-    QRegularExpression re("-?[0-9]*\\/[1-9]+[0-9]*");
-    QRegularExpressionValidator *v = new QRegularExpressionValidator(re);
     int size = this->matSize->value();
     for(int i = 0; i < size; i++)
     {
         for(int j = 0; j < size; j++)
         {
             QLineEdit *le = new QLineEdit();
-            le->setValidator(v);
             this->matLayout->addWidget(le, i, j);
         }
     }
@@ -147,7 +156,7 @@ void Interface::onResponce(QByteArray msg)
         {
             return idx % size;
         };
-
+        qDebug() << m;
         int size = parts[1].toInt();
         int idx = 0;
         int k = 2;
@@ -172,6 +181,19 @@ void Interface::onResponce(QByteArray msg)
 void Interface::sendRequest()
 {
     QString req;
+    if(this->setFloat->isChecked())
+    {
+        req += QString::number(1);
+    }
+    else if(this->setComplex->isChecked())
+    {
+        req += QString::number(2);
+    }
+    else if(this->setRational->isChecked())
+    {
+        req += QString::number(3);
+    }
+    req += separator;
     QPushButton *btn = (QPushButton*)sender();
     if(btn == this->buttonCalcDeterminand)
     {

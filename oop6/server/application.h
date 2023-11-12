@@ -7,12 +7,6 @@
 #include "../common/common.h"
 #include "squarematrix.h"
 
-struct ParsedMessage
-{
-    message msg_type;
-    SquareMatrix mat;
-};
-
 class Application : public QCoreApplication
 {
     Q_OBJECT
@@ -27,8 +21,12 @@ signals:
 
 private:
     Communicator *communicator;
-    ParsedMessage parseMessage(QByteArray msg);
-    QString transposeMessage(SquareMatrix mat);
+
+    template <class number>
+    SquareMatrix<number> parseMessage(QByteArray msg);
+
+    template <class number>
+    QString transposeMessage(SquareMatrix<number> mat);
 
 private slots:
 

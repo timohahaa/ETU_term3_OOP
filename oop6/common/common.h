@@ -12,6 +12,12 @@ enum message {
     TRANSPOSE_RESP,
 };
 
+enum type {
+    TYPE_FLOAT = 1,
+    TYPE_COMPLEX,
+    TYPE_RATIONAL,
+};
+
 extern const QChar separator;
 
 #endif // COMMON_H

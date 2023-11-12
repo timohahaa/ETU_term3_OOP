@@ -11,6 +11,7 @@
 #include <QRegularExpressionValidator>
 #include <QRegularExpression>
 #include <QMessageBox>
+#include <QRadioButton>
 
 class Interface : public QWidget
 {
@@ -28,8 +29,8 @@ signals:
     void request(QString req);
 
 private:
-    int windowWidth = 600;
-    int windowHeight = 400;
+    int windowWidth = 800;
+    int windowHeight = 600;
     // основной лэйаут
     QVBoxLayout *mainLayout;
     // лейаут для матрицы
@@ -42,6 +43,9 @@ private:
     QPushButton *buttonCalcDeterminand;
     QPushButton *buttonCalcRank;
     QPushButton *buttonTranspose;
+    QRadioButton *setFloat;
+    QRadioButton *setComplex;
+    QRadioButton *setRational;
 
     void setUpButtonLayout();
     void setUpMatLayout();
